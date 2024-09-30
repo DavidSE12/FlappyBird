@@ -1,0 +1,78 @@
+
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
+#interface{
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+#background{
+    position: absolute;
+    top : 0;
+    left: 0;
+    height: 800px;
+    width: 1600px;
+    z-index: 1;
+}
+
+#bird{
+    position: absolute;
+    height: 100px;
+    width: 110px;
+    top: 200px;
+    left: 190px;
+    z-index: 3;
+}
+
+#block{
+    position: absolute;
+    z-index: 2;
+    height: 800px;
+    width: 70px;
+    background-color: #73be2d;
+    right: 0;
+    animation: block 2s infinite linear;
+}
+
+@keyframes block {
+    0%{
+        right: 0;
+    }
+    100%{
+        right: 110vw ;
+    }
+}
+
+#hole{
+    position: absolute;
+    z-index: 2;
+    width: 70px;
+    height: 220px;
+    top: 0px;
+    background-color: #71C5CF;   
+    right: 0;
+    animation: hole 2s infinite linear;
+
+
+}
+@keyframes hole {
+    0%{
+        right: 0;
+    }
+    100%{
+        right: 110vw ;
+    }
+}
+#mark{
+    position: absolute;
+    z-index: 2;
+}
+
+
+
+
+
