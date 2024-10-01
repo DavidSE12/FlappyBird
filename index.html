@@ -1,17 +1,29 @@
 <!DOCTYPE html >
 <html lang="en" >
 <head>
-    <title>Flappy Brid</title>
-    <link rel = "stylesheet" href = "index.css">
+    <title>Flappy Brid</title>  <!-- The title of the webpage -->
+    <link rel = "stylesheet" href = "index.css"> <!-- Link to the external CSS file for styling -->
 </head>
 <body>
+    <!-- Main interface container for the game elements -->
     <div id = 'interface'>
+        <!-- Background image of the game -->
         <img id = 'background' src = 'Images/background1.png'>
+
+        <!-- The bird image, which is the main character -->
         <img id = 'bird' src = 'Images/bird3.png'>
+
+        <!-- The score marker (could display the score) -->
         <div id = 'mark'></div>
+
+        <!-- The block (obstacle) element -->
         <div id = 'block'></div>
+
+        <!-- The hole (gap in the obstacle) element -->
         <div id = "hole"></div>
     </div>
+
+    <!-- Link to the external JavaScript file containing the game logic -->
     <script src = 'main.js'></script>
 </body>
 </html>
