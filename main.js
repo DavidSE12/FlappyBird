@@ -2,72 +2,83 @@
 let block = document.getElementById("block");
 let hole = document.getElementById("hole");
 let bird = document.getElementById("bird");
-let jumping = 0;
-let score = 0;
+let jumping = 0;  // Flag to determine if the bird is jumping
+let score = 0; // Initialize the score
 
 
 // Changing the position of hole after every animations
 hole.addEventListener('animationiteration' , () => {
-    let random = (Math.random()*250)+200;  // random 200-450px of top of hole
+    // Process: Generate a random position for the hole's top between 200px and 450px
+    let random = (Math.random()*250)+200;  // random value between 200-450px 
+    
+    // Output: Set the hole's top position to the random value
     hole.style.top = random + "px";
-    score++;        // increase score by 1 for each hurle 
+    
+    // increase score by 1 after each hurdle passed
+    score++;      
 });
 
-// Create a gravity of character ( bird ) and set condition for game over
+// Gravity function to simualate falling and detect collision for the game over
 setInterval( () => {
-    // the top distance of bird
+    // Input: Get the current top distance of the bird (in px)
     let birdtop = 
     parseInt(window.getComputedStyle(bird).getPropertyValue("top")); // the value of top is a string so should change to interger
 
-    // the top distance of hole
+    // Input: Get the current top and left distances of the hole
     let holetop = 
-    parseInt(window.getComputedStyle(hole).getPropertyValue("top"));
-
-    // the distance of hole     
+    parseInt(window.getComputedStyle(hole).getPropertyValue("top"));   
     let holeleft = 
     parseInt(window.getComputedStyle(hole).getPropertyValue("left")) ;
 
-    // only gravity when dont jump 
+    // Process: Apply gravity if the bird is not jumping
     if(jumping == 0){
-        bird.style.top = (birdtop + 3) + "px";
+        bird.style.top = (birdtop + 3) + "px";  // Increase the bird's top distance by 3px to simulate gravity
     }
 
-    // conditions for the bird to pass through the hole
+    // Process: Check for game over conditions
+    // Condition 1: Bird goes out of bounds (falls below 700px)
+    // Condition 2: Bird hits the hole (if the hole is within 300px to 190px horizontally and the bird is outside the hole's vertical range)
     if(birdtop > 700 || (  (holeleft < 300  && holeleft > 190 ) && ( (birdtop < holetop) || (birdtop > holetop + 120)))){
+        // Output: Alert the game over message and display the score
         alert("game over score " + (score - 1) )
-        bird.style.top = 200 + "px";   // return to original position
-        score = 0;    // return score back to zero
+
+        // Output: Reset bird position and score
+        bird.style.top = 200 + "px";   // Reset bird position to initial height
+        score = 0;    // Reset score to zero
     }
 }, 10) // repeat each 10 milisecond
 
-// Create jump function for the bird
+// Jump function to make the bird jump
 function jump(){
-    jumping = 1; // turn off gravity
-    let jumpCount = 0; // count iterations
+    // Set jumping flag to 1 to temporarily disable gravity
+    jumping = 1; 
 
-    // create function jump 
+    // count iterations
+    let jumpCount = 0; 
+
+    // create the jump interval function
     let jumpInterval = setInterval( () =>{ 
         // Increse by 1 for each iteration
         jumpCount++;
         
-        // get value "top" distance of bird
+        // Get the current top distance of the bird
         let birdtop = 
         parseInt(window.getComputedStyle(bird).getPropertyValue("top")); 
         
-        // Make the bird jump
-        if(birdtop > 18){
+        // Make the bird jump upwards by 5px
+        if(birdtop > 18){  // Ensure the bird doesn't jump too high (beyond 18px from the top)
             bird.style.top = (birdtop - 5) + "px";
         }
 
-        // Avoid the bird jumping forever
+        // Stop the jump after a certain point (after 20 iterations, or 0.2s)
         if(jumpCount > 20){ // 0.2s
-            clearInterval(jumpInterval) // clear interval of function -> no more jumping
-            jumping = 0; // turn on gravity
+            clearInterval(jumpInterval) // Stop the jumping interval
+            jumping = 0; // Re-enable gravity
         }
-    }, 10 ) // repeat each 10 milisecond
+    }, 10 ) // repeat every 10 miliseconds
 }
 
-// Add an event listener for keydown events
+// Add an event listener for keydown events to trigger the jump
 document.addEventListener("keydown", (event) => {
     // Check if the pressed key is the spacebar
     if (event.code === "Space") {
