@@ -2,7 +2,7 @@
 let block = document.getElementById("block");
 let hole = document.getElementById("hole");
 let bird = document.getElementById("bird");
-let jumping = 0;  // Flag to determine if the bird is jumping
+let isBridJumping = 0;  // Flag to determine if the bird is jumping
 let score = 0; // Initialize the score
 
 
@@ -31,7 +31,7 @@ setInterval( () => {
     parseInt(window.getComputedStyle(hole).getPropertyValue("left")) ;
 
     // Process: Apply gravity if the bird is not jumping
-    if(jumping == 0){
+    if(isBirdJumping == 0){
         bird.style.top = (birdtop + 3) + "px";  // Increase the bird's top distance by 3px to simulate gravity
     }
 
@@ -51,7 +51,7 @@ setInterval( () => {
 // Jump function to make the bird jump
 function jump(){
     // Set jumping flag to 1 to temporarily disable gravity
-    jumping = 1; 
+    isBirdJumping = 1; 
 
     // count iterations
     let jumpCount = 0; 
