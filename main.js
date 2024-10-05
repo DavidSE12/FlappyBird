@@ -1,13 +1,15 @@
 // create variable to get elements from HTML file
 const hole = document.getElementById("hole");
 const bird = document.getElementById("bird");
+const minOfHole = 200;  // Set min value of hole in block
+const maxOfHole = 450;  // Set max value of hole in block
 let isBirdJumping = 0;  // Flag to determine if the bird is isBirdJumping
 let score = 0; // Initialize the score
 
 // Changing the position of hole after every animations
 hole.addEventListener('animationiteration' , () => {
-    // Process: Generate a random position for the hole's top between 200px and 450px
-    let random = (Math.random()*250)+200;  // random value between 200-450px 
+    // Process: Generate a random position for the hole's top between minOfHole and maxOfHole (200-450px)
+    let random = (Math.random()*(maxOfHole-minOfHole))+minOfHole;  // random value between 200-450px 
     
     // Output: Set the hole's top position to the random value
     hole.style.top = random + "px";
@@ -16,7 +18,26 @@ hole.addEventListener('animationiteration' , () => {
     score++;      
 });
 
-// Gravity function to simualate falling and detect collision for the game over
+// Function checkOver to detect collision for the game over
+// Process: Check for game over conditions
+// Condition 1: Bird goes out of bounds (falls below 700px)
+// Condition 2: Bird hits the hole (if the hole is within 300px to 190px horizontally and the bird is outside the hole's vertical range)
+function checkGameOver(birdTopValue, holeLeftValue, holeTopValue){
+    if(birdTopValue > 700 || // Condition 1
+      ( (holeLeftValue < 300  && holeLeftValue > 190 ) &&                      // Condition 2
+        (birdTopValue < holeTopValue || birdTopValue > holeTopValue + 120) )   // Condition 2
+     ){
+        // Output: Alert the game over message and display the score
+        alert(`game over score: ${score }`)
+
+        // Output: Reset bird position and score
+        bird.style.top = 200 + "px";   // Reset bird position to initial height
+        score = -1;    // Reset score to zero
+        hole.style.right = 0;  // Reset position of hole
+    }
+}
+
+// Gravity function to simualate falling 
 setInterval( () => {
     // Input: Get the current top distance of the bird (in px)
     let birdTopValue = 
@@ -33,18 +54,9 @@ setInterval( () => {
         bird.style.top = (birdTopValue + 3) + "px";  // Increase the bird's top distance to simulate gravity
     }
 
-    // Process: Check for game over conditions
-    // Condition 1: Bird goes out of bounds (falls below 700px)
-    // Condition 2: Bird hits the hole (if the hole is within 300px to 190px horizontally and the bird is outside the hole's vertical range)
-    if(birdTopValue > 700 || (  (holeLeftValue < 300  && holeLeftValue > 190 ) && ( (birdTopValue < holeTopValue) || (birdTopValue > holeTopValue + 120)))){
-        // Output: Alert the game over message and display the score
-        alert("game over score " + (score - 1) )
-
-        // Output: Reset bird position and score
-        bird.style.top = 200 + "px";   // Reset bird position to initial height
-        score = 0;    // Reset score to zero
-        hole.style.right = 0;
-    }
+    // Check game over
+    checkGameOver(birdTopValue, holeLeftValue, holeTopValue)
+    
 }, 10) // repeat each 10 milisecond
 
 // Jump function to make the bird jump
