@@ -1,15 +1,15 @@
 // create variable to get elements from HTML file
 const hole = document.getElementById("hole");
 const bird = document.getElementById("bird");
-const minOfHole = 200;  // Set min value of hole in block
-const maxOfHole = 450;  // Set max value of hole in block
+const minHolePosition = 200;  // Set min value of hole in block
+const maxHolePosition = 450;  // Set max value of hole in block
 let isBirdJumping = 0;  // Flag to determine if the bird is isBirdJumping
 let score = 0; // Initialize the score
 
 // Changing the position of hole after every animations
 hole.addEventListener('animationiteration' , () => {
     // Process: Generate a random position for the hole's top between minOfHole and maxOfHole (200-450px)
-    let random = (Math.random()*(maxOfHole-minOfHole))+minOfHole;  // random value between 200-450px 
+    let random = (Math.random()*(maxHolePosition-minHolePosition))+minHolePosition;  // random value between 200-450px 
     
     // Output: Set the hole's top position to the random value
     hole.style.top = random + "px";
