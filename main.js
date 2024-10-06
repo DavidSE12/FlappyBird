@@ -8,8 +8,8 @@ let score = 0; // Initialize the score
 
 // Changing the position of hole after every animations
 hole.addEventListener('animationiteration' , () => {
-    // Process: Generate a random position for the hole's top between minOfHole and maxOfHole (200-450px)
-    let random = (Math.random()*(maxHolePosition-minHolePosition))+minHolePosition;  // random value between 200-450px 
+    // Process: Generate a random position for the hole's top between minHolePosition and maxHolePosition 
+    let random = (Math.random()*(maxHolePosition-minHolePosition))+minHolePosition;  // random value between min - max Hole Position (200-450)
     
     // Output: Set the hole's top position to the random value
     hole.style.top = random + "px";
@@ -32,7 +32,7 @@ function checkGameOver(birdTopValue, holeLeftValue, holeTopValue){
 
         // Output: Reset bird position and score
         bird.style.top = 200 + "px";   // Reset bird position to initial height
-        score = -1;    // Reset score to zero
+        score = -1;    // Reset score to -1
         hole.style.right = 0;  // Reset position of hole
     }
 }
