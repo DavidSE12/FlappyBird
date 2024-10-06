@@ -58,7 +58,7 @@ html, body{
     z-index: 2; /* Same z-index as the block so they move together */
     width: 4.4rem; 
     height: 13.75rem;
-    top: 0;  /* Initial position of the hole (changes dynamically) */
+    top: 200px;  /* Initial position of the hole (changes dynamically) */
     background-color: #71C5CF;   /* Set the color same with background (look like the hole of block) */
     right: 0; /* Moving together with block */
     animation: hole 2s infinite linear; /* Animate the hole's movement with the block */
